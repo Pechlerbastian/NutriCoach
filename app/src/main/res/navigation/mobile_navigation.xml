@@ -22,4 +22,12 @@
         android:name="de.uniaugsburg.app.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+ <!-- TODO maybe remove this codeblock-->
+    <fragment
+        android:id="@+id/navigation_camera"
+        android:name="de.uniaugsburg.app.ui.camera.CameraFragment"
+        android:label="@string/title_camera"
+        tools:layout="@layout/fragment_camera" />
+
 </navigation>
