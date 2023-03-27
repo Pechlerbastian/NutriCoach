@@ -1,4 +1,4 @@
-package de.uniaugsburg.app.ui.notifications;
+package de.uniaugsburg.app.ui.items;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import de.uniaugsburg.app.databinding.FragmentNotificationsBinding;
+import de.uniaugsburg.app.databinding.FragmentItemsBinding;
 
-public class NotificationsFragment extends Fragment {
+public class ItemsFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentItemsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        ItemsViewModel notificationsViewModel =
+                new ViewModelProvider(this).get(ItemsViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentItemsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;

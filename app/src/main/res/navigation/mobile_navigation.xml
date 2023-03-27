@@ -13,15 +13,15 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="de.uniaugsburg.app.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:name="de.uniaugsburg.app.ui.add.AddFragment"
+        android:label="@string/title_add"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="de.uniaugsburg.app.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="de.uniaugsburg.app.ui.items.ItemsFragment"
+        android:label="@string/title_items"
+        tools:layout="@layout/fragment_items" />
 
  <!-- TODO maybe remove this codeblock-->
     <fragment

@@ -1,4 +1,4 @@
-package de.uniaugsburg.app.ui.dashboard;
+package de.uniaugsburg.app.ui.add;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,14 +12,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.uniaugsburg.app.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
+public class AddFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        AddViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(AddViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
