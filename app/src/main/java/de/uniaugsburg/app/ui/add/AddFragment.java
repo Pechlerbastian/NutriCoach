@@ -30,12 +30,14 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-        AddViewModel dashboardViewModel =
+        AddViewModel addViewModel =
                 new ViewModelProvider(this).get(AddViewModel.class);
 
 
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        addViewModel.getText().observe(getViewLifecycleOwner(), binding.previewField::setText);
 
 
         binding.inputField.setText(getString(R.string.input));
