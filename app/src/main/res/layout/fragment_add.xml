@@ -70,10 +70,10 @@
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.067" />
 
-    <TextView
+    <ScrollView
         android:id="@+id/preview_field"
         android:layout_width="300dp"
-        android:layout_height="216dp"
+        android:layout_height="80dp"
         android:layout_marginTop="24dp"
         android:padding="10dp"
         android:textSize="30sp"
@@ -86,10 +86,10 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.731"
+        app:layout_constraintHorizontal_bias="0.823"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/preview_field" />
 
