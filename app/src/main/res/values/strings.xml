@@ -5,4 +5,11 @@
     <string name="title_items">Items</string>
     <string name="title_camera">Camera</string>
     <string name="calories">%1$d Calories</string>
+    <string name="recipe">Recipe</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="search">Search</string>
+    <string name="input">Beans</string>
+    <string name="label">Item:</string>
+    <string name="save">Save</string>
+    <string name="saveDescription">Save</string>
 </resources>
