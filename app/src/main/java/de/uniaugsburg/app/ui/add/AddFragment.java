@@ -23,6 +23,7 @@ import okhttp3.Response;
 public class AddFragment extends Fragment implements View.OnClickListener {
 
     private FragmentAddBinding binding;
+    private AddViewModel addViewModel;
 
     private OkHttpClient client;
 
@@ -30,7 +31,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-        AddViewModel addViewModel =
+        addViewModel =
                 new ViewModelProvider(this).get(AddViewModel.class);
 
 
@@ -71,6 +72,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
+        addViewModel.changeValue();
     }
 }

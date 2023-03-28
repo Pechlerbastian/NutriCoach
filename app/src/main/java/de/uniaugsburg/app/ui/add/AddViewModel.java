@@ -12,6 +12,10 @@ public class AddViewModel extends ViewModel {
         mText.setValue("dummy");
     }
 
+    public void changeValue() {
+        mText.setValue("new");
+    }
+
     public LiveData<String> getText() {
         return mText;
     }
