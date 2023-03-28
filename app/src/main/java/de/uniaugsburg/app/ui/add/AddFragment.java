@@ -1,36 +1,28 @@
 package de.uniaugsburg.app.ui.add;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import de.uniaugsburg.app.R;
-import de.uniaugsburg.app.databinding.FragmentDashboardBinding;
+import de.uniaugsburg.app.databinding.FragmentAddBinding;
 
 public class AddFragment extends Fragment implements View.OnClickListener {
 
-    private FragmentDashboardBinding binding;
+    private FragmentAddBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         AddViewModel dashboardViewModel =
                 new ViewModelProvider(this).get(AddViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         binding.searchButton.setOnClickListener(this);

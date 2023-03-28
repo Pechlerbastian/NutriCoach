@@ -15,7 +15,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="de.uniaugsburg.app.ui.add.AddFragment"
         android:label="@string/title_add"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_add" />
 
     <fragment
         android:id="@+id/navigation_notifications"
