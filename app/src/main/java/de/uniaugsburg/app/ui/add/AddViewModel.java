@@ -17,24 +17,32 @@ public class AddViewModel extends ViewModel {
     private final MutableLiveData<String> mText;
     public AddViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("dummy");
     }
 
-    public void changeValue() {
+    public void changeValue(String foodType, String foodName) {
         OkHttpClient client = new OkHttpClient();
+
+        String url = "";
+        if(foodType == "recipe")  {
+            url = "https://api.spoonacular.com/recipes/complexSearch";
+        } else {
+            url = "https://api.spoonacular.com/food/ingredients/search";
+        }
+
         Request request = new Request.Builder()
-                .url("https://jsonplaceholder.typicode.com/todos/1")
+                .url(url + "?apiKey=6cbbb8f2f6184dbb95ae5641d1dce7e4&query=" + foodName)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+
                 mText.postValue("failure");
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mText.postValue("beans");
+                mText.postValue("correct");
             }
         });
     }
