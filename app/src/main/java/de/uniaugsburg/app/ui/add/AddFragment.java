@@ -3,6 +3,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,7 +26,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     private FragmentAddBinding binding;
     private AddViewModel addViewModel;
 
-    private OkHttpClient client;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
 
         binding = FragmentAddBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        root = binding.getRoot();
 
         addViewModel.getText().observe(getViewLifecycleOwner(), binding.previewField::setText);
 
@@ -72,6 +73,11 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        addViewModel.changeValue();
+        RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
+        String type = btn.getText().toString();
+
+        String name = binding.inputField.getText().toString();
+
+        addViewModel.changeValue(type, name);
     }
 }
