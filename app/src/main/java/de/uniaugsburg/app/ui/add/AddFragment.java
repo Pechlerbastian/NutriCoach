@@ -29,10 +29,12 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.inputField.setText(getString(R.string.input));
         binding.searchButton.setText(getString(R.string.search));
         binding.label.setText(getString(R.string.label));
+        binding.weight.setText(getString(R.string.weight));
 
         binding.searchButton.setOnClickListener(this);
 
         binding.saveButton.setVisibility(View.GONE);
+        binding.weight.setVisibility(View.GONE);
 
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,6 +58,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         binding.saveButton.setVisibility(View.VISIBLE);
+        binding.weight.setVisibility(View.VISIBLE);
         String searchText =  binding.inputField.getText().toString();
 
         if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_recipe) {
