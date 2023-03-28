@@ -47,8 +47,8 @@ public class AddViewModel extends ViewModel {
                 if(response.body() != null) {
                     Log.d("url", request.toString());
                     Log.d("call", call.toString());
-                    Log.d("response", response.body().toString());
-                    mText.postValue(response.body().toString());
+                    Log.d("response", response.body().string());
+                    mText.postValue(response.body().string());
                 }
                 mText.postValue("empty");
             }
