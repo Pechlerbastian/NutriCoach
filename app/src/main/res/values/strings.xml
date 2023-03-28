@@ -9,5 +9,5 @@
     <string name="ingredient">Ingredient</string>
     <string name="search">Search</string>
     <string name="input">Search…</string>
-    <string name="label">Food Item</string>
+    <string name="label">Name</string>
 </resources>

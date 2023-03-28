@@ -54,7 +54,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        EditText searchText = (EditText) binding.inputField.getText();
+        String searchText =  binding.inputField.getText().toString();
 
         if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_recipe) {
             binding.previewField.setText("You selected a recipe" + searchText);
