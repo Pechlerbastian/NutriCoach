@@ -12,4 +12,5 @@
     <string name="label">Item:</string>
     <string name="save">Save</string>
     <string name="saveDescription">Save</string>
+    <string name="weight">100</string>
 </resources>

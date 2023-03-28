@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="16sp"
     tools:context=".ui.add.AddFragment">
 
     <RadioGroup
@@ -19,11 +20,11 @@
         app:layout_constraintTop_toBottomOf="@+id/label">
 
         <RadioButton
-            android:textSize="30sp"
             android:id="@+id/radio_ingredient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ingredient" />
+            android:text="@string/ingredient"
+            android:textSize="30sp" />
 
         <RadioButton
             android:textSize="30sp"
@@ -92,6 +93,17 @@
         android:src="@drawable/ic_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/preview_field" />
+
+    <EditText
+        android:id="@+id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/preview_field" />
 
