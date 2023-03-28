@@ -1,5 +1,7 @@
 package de.uniaugsburg.app.ui.add;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -30,19 +32,22 @@ public class AddViewModel extends ViewModel {
         }
 
         Request request = new Request.Builder()
-                .url(url + "?apiKey=6cbbb8f2f6184dbb95ae5641d1dce7e4&query=" + foodName)
+                .url("https://api.spoonacular.com/food/ingredients/search?apiKey=6cbbb8f2f6184dbb95ae5641d1dce7e4&query=apple")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
                 mText.postValue("failure");
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 if(response.body() != null) {
+                    Log.d("url", request.toString());
+                    Log.d("call", call.toString());
+                    Log.d("response", response.body().toString());
                     mText.postValue(response.body().toString());
                 }
                 mText.postValue("empty");
