@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:textSize="30sp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:onClick="onRadioButtonClicked"
             android:text="@string/ingredient" />
 
         <RadioButton
@@ -29,13 +29,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:onClick="onRadioButtonClicked"
             android:text="@string/recipe" />
     </RadioGroup>
 
     <EditText
         android:id="@+id/inputField"
-        android:layout_width="149dp"
+        android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:ems="10"
@@ -45,7 +44,7 @@
 
     <TextView
         android:id="@+id/label"
-        android:layout_width="149dp"
+        android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:textSize="30sp"

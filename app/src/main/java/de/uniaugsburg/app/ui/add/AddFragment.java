@@ -20,7 +20,7 @@ import java.util.Locale;
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentDashboardBinding;
 
-public class AddFragment extends Fragment {
+public class AddFragment extends Fragment implements View.OnClickListener {
 
     private FragmentDashboardBinding binding;
 
@@ -32,6 +32,7 @@ public class AddFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        binding.searchButton.setOnClickListener(this);
         return root;
     }
 
@@ -44,25 +45,13 @@ public class AddFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         binding.inputField.setText(getString(R.string.input));
         binding.searchButton.setText(getString(R.string.search));
         binding.label.setText(getString(R.string.label));
-        binding.label.setText(getString(R.string.label));
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
-
-        if(view.getId() == R.id.radio_recipe) {
-            if(checked) {
-                Log.d("info", "Recipe selected");
-            }
-        } else {
-            if(checked) {
-                Log.d("info", "Ingredient selected");
-            }
-        }
+    @Override
+    public void onClick(View view) {
+        binding.previewField.setText(getString(R.string.label));
     }
 }
