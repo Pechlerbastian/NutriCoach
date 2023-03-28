@@ -23,18 +23,18 @@ public class AddViewModel extends ViewModel {
     public void changeValue() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("dummy.com")
+                .url("https://jsonplaceholder.typicode.com/todos/1")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                mText.setValue("failure");
+                mText.postValue("failure");
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mText.setValue("beans");
+                mText.postValue("beans");
             }
         });
     }
