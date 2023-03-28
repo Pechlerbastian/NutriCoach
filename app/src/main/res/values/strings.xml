@@ -5,4 +5,6 @@
     <string name="title_items">Items</string>
     <string name="title_camera">Camera</string>
     <string name="calories">%1$d Calories</string>
+    <string name="recipe">Recipe</string>
+    <string name="ingredient">Ingredient</string>
 </resources>
