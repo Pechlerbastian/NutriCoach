@@ -18,17 +18,18 @@
         app:layout_constraintTop_toBottomOf="@+id/label">
 
         <RadioButton
+            android:textSize="30sp"
             android:id="@+id/radio_ingredient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
             android:text="@string/ingredient" />
 
         <RadioButton
+            android:textSize="30sp"
             android:id="@+id/radio_recipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginStart="30dp"
             android:text="@string/recipe" />
     </RadioGroup>
 
@@ -36,7 +37,7 @@
         android:id="@+id/inputField"
         android:layout_width="220dp"
         android:layout_height="50dp"
-        android:layout_margin="20dp"
+        android:layout_margin="16dp"
         android:ems="10"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +47,7 @@
         android:id="@+id/label"
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:layout_margin="20dp"
+        android:layout_margin="16dp"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/inputField"
         app:layout_constraintHorizontal_bias="0.507"
@@ -55,8 +56,8 @@
 
     <Button
         android:id="@+id/search_button"
-        android:layout_width="243dp"
-        android:layout_height="66dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,9 +68,10 @@
 
     <TextView
         android:id="@+id/preview_field"
-        android:layout_width="308dp"
+        android:layout_width="300dp"
         android:layout_height="216dp"
         android:layout_marginTop="24dp"
+        android:padding="10dp"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -52,6 +53,14 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        binding.previewField.setText(getString(R.string.label));
+
+        EditText searchText = (EditText) binding.inputField.getText();
+
+        if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_recipe) {
+            binding.previewField.setText("You selected a recipe" + searchText);
+        } else {
+            binding.previewField.setText("You selected a ingredient" + searchText);
+
+        }
     }
 }
