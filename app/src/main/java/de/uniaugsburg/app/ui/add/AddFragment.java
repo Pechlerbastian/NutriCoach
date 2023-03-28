@@ -1,5 +1,4 @@
 package de.uniaugsburg.app.ui.add;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,20 +9,36 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import java.io.IOException;
+
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentAddBinding;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class AddFragment extends Fragment implements View.OnClickListener {
 
     private FragmentAddBinding binding;
+    private AddViewModel addViewModel;
+
+    private OkHttpClient client;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        AddViewModel dashboardViewModel =
+
+
+        addViewModel =
                 new ViewModelProvider(this).get(AddViewModel.class);
+
 
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        addViewModel.getText().observe(getViewLifecycleOwner(), binding.previewField::setText);
 
 
         binding.inputField.setText(getString(R.string.input));
@@ -57,14 +72,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        binding.saveButton.setVisibility(View.VISIBLE);
-        binding.weight.setVisibility(View.VISIBLE);
-        String searchText =  binding.inputField.getText().toString();
-
-        if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_recipe) {
-            binding.previewField.setText("You selected a recipe" + searchText);
-        } else {
-            binding.previewField.setText("You selected a ingredient" + searchText);
-        }
+        addViewModel.changeValue();
     }
 }
