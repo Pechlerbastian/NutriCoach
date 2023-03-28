@@ -25,7 +25,18 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+
+        binding.inputField.setText(getString(R.string.input));
+        binding.searchButton.setText(getString(R.string.search));
+        binding.label.setText(getString(R.string.label));
+        binding.button.setText(getString(R.string.save));
+
         binding.searchButton.setOnClickListener(this);
+        binding.button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // DATEI SPEICHERN
+            }
+        });
         return root;
     }
 
@@ -38,9 +49,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        binding.inputField.setText(getString(R.string.input));
-        binding.searchButton.setText(getString(R.string.search));
-        binding.label.setText(getString(R.string.label));
     }
 
     @Override
