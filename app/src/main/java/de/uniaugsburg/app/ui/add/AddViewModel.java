@@ -42,7 +42,10 @@ public class AddViewModel extends ViewModel {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mText.postValue("correct");
+                if(response.body() != null) {
+                    mText.postValue(response.body().toString());
+                }
+                mText.postValue("empty");
             }
         });
     }
