@@ -49,6 +49,26 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.saveButton.setVisibility(View.GONE);
         binding.weight.setVisibility(View.GONE);
 
+        Request request = new Request.Builder()
+                .url("https://jsonplaceholder.typicode.com/todos/1")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.body() != null) {
+                    binding.previewField.setText("Result" + response.body().string());
+                } else {
+                    binding.previewField.setText("something went wrong");
+                }
+            }
+        });
+
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // DATEI SPEICHERN
@@ -70,24 +90,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Request request = new Request.Builder()
-                .url("https://jsonplaceholder.typicode.com/todos/1")
-                .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                call.cancel();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if(response.body() != null) {
-                    binding.previewField.setText("Result" + response.body().string());
-                } else {
-                    binding.previewField.setText("something went wrong");
-                }
-            }
-        });
     }
 }
