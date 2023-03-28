@@ -32,7 +32,7 @@ public class AddViewModel extends ViewModel {
         }
 
         Request request = new Request.Builder()
-                .url("https://api.spoonacular.com/food/ingredients/search?apiKey=6cbbb8f2f6184dbb95ae5641d1dce7e4&query=apple")
+                .url(url + "?apiKey=6cbbb8f2f6184dbb95ae5641d1dce7e4&query=" + foodName)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
