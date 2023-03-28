@@ -52,7 +52,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
             binding.previewField.setText("You selected a recipe" + searchText);
         } else {
             binding.previewField.setText("You selected a ingredient" + searchText);
-
         }
     }
 }
