@@ -33,7 +33,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         AddViewModel dashboardViewModel =
                 new ViewModelProvider(this).get(AddViewModel.class);
 
-        client = new OkHttpClient();
 
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -49,6 +48,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.saveButton.setVisibility(View.GONE);
         binding.weight.setVisibility(View.GONE);
 
+
+        client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://jsonplaceholder.typicode.com/todos/1")
                 .build();
