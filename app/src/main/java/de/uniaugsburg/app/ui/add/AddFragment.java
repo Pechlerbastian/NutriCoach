@@ -1,5 +1,4 @@
 package de.uniaugsburg.app.ui.add;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +9,31 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import java.io.IOException;
+
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentAddBinding;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class AddFragment extends Fragment implements View.OnClickListener {
 
     private FragmentAddBinding binding;
 
+    private OkHttpClient client;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
         AddViewModel dashboardViewModel =
                 new ViewModelProvider(this).get(AddViewModel.class);
+
+        client = new OkHttpClient();
 
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -57,14 +70,24 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        binding.saveButton.setVisibility(View.VISIBLE);
-        binding.weight.setVisibility(View.VISIBLE);
-        String searchText =  binding.inputField.getText().toString();
+        Request request = new Request.Builder()
+                .url("https://jsonplaceholder.typicode.com/todos/1")
+                .build();
 
-        if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_recipe) {
-            binding.previewField.setText("You selected a recipe" + searchText);
-        } else {
-            binding.previewField.setText("You selected a ingredient" + searchText);
-        }
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.body() != null) {
+                    binding.previewField.setText("Result" + response.body().string());
+                } else {
+                    binding.previewField.setText("something went wrong");
+                }
+            }
+        });
     }
 }
