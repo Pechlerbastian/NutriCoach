@@ -25,12 +25,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentCameraBinding;
 import de.uniaugsburg.app.ui.home.HomeFragment;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
-public class CameraFragment extends Fragment {
+public class CameraFragment extends Fragment implements View.OnClickListener {
 
     private FragmentCameraBinding binding;
     private View root;
@@ -52,9 +64,24 @@ public class CameraFragment extends Fragment {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         } else {
-            final TextView textView = binding.textView;
-            textView.setText(R.string.no_permission_text);
+            Toast.makeText(getContext(), R.string.no_permission_text, Toast.LENGTH_SHORT).show();
         }
+
+        binding.label.setText(R.string.pre_model_text);
+        binding.searchButton.setText(getString(R.string.search));
+        binding.weight.setText(getString(R.string.weight));
+
+        binding.searchButton.setOnClickListener(this);
+
+        binding.saveButton.setVisibility(View.GONE);
+        binding.weight.setVisibility(View.GONE);
+
+        binding.saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // DATEI SPEICHERN
+            }
+        });
+
 
         return root;
     }
@@ -74,13 +101,55 @@ public class CameraFragment extends Fragment {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 
             // rework from here
-            ImageView imageView = root.findViewById(R.id.image_view);
-            imageView.setImageBitmap(imageBitmap);
+            //sendImageRequest();
+            binding.inputField.setText("Hot Dog");
         }
     }
 
     private boolean checkCameraPermission() {
         int permissionResult = ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA);
         return permissionResult == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void sendImageRequest(Bitmap imageBitmap) {
+        OkHttpClient client = new OkHttpClient();
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] imageData = byteArrayOutputStream.toByteArray();
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", "image.jpg",
+                        RequestBody.create(MediaType.parse("image/jpeg"), imageData))
+                .build();
+
+        Request request = new Request.Builder()
+                .url("0.0.0.0")
+                .post(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Error sending request", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseBody = response.body().string();
+                    // handle the response
+                } else {
+                    Toast.makeText(getContext(), "Error: " + response.code() + " " + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        return;
     }
 }
