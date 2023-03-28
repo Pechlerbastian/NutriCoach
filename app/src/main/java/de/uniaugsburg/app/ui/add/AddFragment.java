@@ -26,6 +26,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     private FragmentAddBinding binding;
     private AddViewModel addViewModel;
 
+    private String[] saveVal;
     private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -80,6 +81,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
         String name = binding.inputField.getText().toString();
 
-        addViewModel.changeValue(type, name);
+        saveVal = addViewModel.changeValue(type, name);
     }
 }

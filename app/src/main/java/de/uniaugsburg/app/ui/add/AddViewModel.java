@@ -25,6 +25,8 @@ public class AddViewModel extends ViewModel {
     private String resultId = "";
     private String resultName = "";
 
+    private String resultCalories = "";
+
     private String type;
     private OkHttpClient client;
     private String infoUrl = "";
@@ -36,7 +38,7 @@ public class AddViewModel extends ViewModel {
         mText = new MutableLiveData<>();
     }
 
-    public void changeValue(String foodType, String foodName) {
+    public String[] changeValue(String foodType, String foodName) {
         client = new OkHttpClient();
         type = foodType;
         String searchUrl = "";
@@ -57,6 +59,8 @@ public class AddViewModel extends ViewModel {
         Request request = new Request.Builder()
                 .url(searchUrl + "?apiKey=" + apiKey + "&number=" + number + "&query=" + foodName)
                 .build();
+
+        Log.d("request", request.toString());
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -87,6 +91,7 @@ public class AddViewModel extends ViewModel {
                 }
             }
         });
+        return new String[] {resultName, resultCalories };
     }
 
     public LiveData<String> getText() {
@@ -100,6 +105,7 @@ public class AddViewModel extends ViewModel {
                     .url(infoUrl + "/" + resultId + "/" + appendInfo + "?apiKey=" + apiKey + "&amount=1")
                     .build();
 
+            Log.d("request", infoRequest.toString());
             client.newCall(infoRequest).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {}
@@ -114,7 +120,7 @@ public class AddViewModel extends ViewModel {
                         String calories = "0";
                         if(type.equals("Recipe")) {
                             calories = jsonObject.getString("calories");
-                            calories = calories.replace("k", "");
+                            resultCalories = calories.replace("k", "");
                         } else {
                             JSONObject nutrition = jsonObject.getJSONObject("nutrition");
                             JSONArray nutrients = nutrition.getJSONArray("nutrients");
@@ -122,14 +128,14 @@ public class AddViewModel extends ViewModel {
                             for(int i = 0; i < nutrients.length(); i++) {
                                 nutritionValue = new JSONObject(nutrients.getString(i));
                                 if(nutritionValue.getString("name").equals("Calories")) {
-                                    calories = nutritionValue.getString("amount");
+                                    resultCalories = nutritionValue.getString("amount");
                                     break;
                                 }
 
                             }
 
                         }
-                        mText.postValue(resultName + ":\n" + "Calories: " + calories + " kcal");
+                        mText.postValue(resultName + ":\n" + "Calories: " + resultCalories + " kcal");
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
