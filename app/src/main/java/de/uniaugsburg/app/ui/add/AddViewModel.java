@@ -25,6 +25,7 @@ public class AddViewModel extends ViewModel {
         OkHttpClient client = new OkHttpClient();
 
         String url = "";
+        Log.d("info", foodType);
         if(foodType == "recipe")  {
             url = "https://api.spoonacular.com/recipes/complexSearch";
         } else {
