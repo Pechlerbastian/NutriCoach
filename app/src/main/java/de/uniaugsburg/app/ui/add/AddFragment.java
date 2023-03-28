@@ -29,6 +29,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.inputField.setText(getString(R.string.input));
         binding.searchButton.setText(getString(R.string.search));
         binding.label.setText(getString(R.string.label));
+        binding.weight.setText(getString(R.string.weight));
 
         binding.searchButton.setOnClickListener(this);
 
