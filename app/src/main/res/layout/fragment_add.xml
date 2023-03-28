@@ -82,15 +82,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_button" />
 
-    <Button
-        android:id="@+id/button"
+    <ImageButton
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:drawable="@drawable/ic_save"
+        android:src="@drawable/ic_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.823"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/preview_field" />
+        app:layout_constraintTop_toBottomOf="@+id/preview_field"
+        android:contentDescription="@string/saveDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

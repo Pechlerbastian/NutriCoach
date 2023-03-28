@@ -31,7 +31,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.label.setText(getString(R.string.label));
 
         binding.searchButton.setOnClickListener(this);
-        binding.button.setOnClickListener(new View.OnClickListener() {
+        binding.saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // DATEI SPEICHERN
             }
