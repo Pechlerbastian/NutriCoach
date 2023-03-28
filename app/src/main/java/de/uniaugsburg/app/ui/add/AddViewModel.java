@@ -60,9 +60,7 @@ public class AddViewModel extends ViewModel {
 
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                mText.postValue("failure");
-            }
+            public void onFailure(Call call, IOException e) {}
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -102,12 +100,9 @@ public class AddViewModel extends ViewModel {
                     .url(infoUrl + "/" + resultId + "/" + appendInfo + "?apiKey=" + apiKey + "&amount=1")
                     .build();
 
-            Log.d("url", infoRequest.toString());
             client.newCall(infoRequest).enqueue(new Callback() {
                 @Override
-                public void onFailure(Call call, IOException e) {
-                    mText.postValue("failure");
-                }
+                public void onFailure(Call call, IOException e) {}
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
@@ -116,23 +111,17 @@ public class AddViewModel extends ViewModel {
                     JSONObject jsonObject;
                     try {
                         jsonObject = new JSONObject(response.body().string());
-                        Log.d("json", jsonObject.toString());
                         String calories = "0";
                         if(type.equals("Recipe")) {
                             calories = jsonObject.getString("calories");
                             calories = calories.replace("k", "");
                         } else {
                             JSONObject nutrition = jsonObject.getJSONObject("nutrition");
-                            Log.d("nutrition", nutrition.toString());
                             JSONArray nutrients = nutrition.getJSONArray("nutrients");
-                            Log.d("nutrients", nutrients.toString());
                             JSONObject nutritionValue;
                             for(int i = 0; i < nutrients.length(); i++) {
                                 nutritionValue = new JSONObject(nutrients.getString(i));
-                                Log.d("nutrition", nutritionValue.toString());
-                                Log.d("nut", nutritionValue.getString("name"));
                                 if(nutritionValue.getString("name").equals("Calories")) {
-                                    Log.d("cal", "Calories found");
                                     calories = nutritionValue.getString("amount");
                                     break;
                                 }
