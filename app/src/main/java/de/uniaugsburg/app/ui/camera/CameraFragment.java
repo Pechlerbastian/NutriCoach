@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentCameraBinding;
@@ -35,7 +36,6 @@ public class CameraFragment extends Fragment {
     private View root;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int REQUEST_CAMERA_PERMISSION = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,35 +45,15 @@ public class CameraFragment extends Fragment {
         binding = FragmentCameraBinding.inflate(inflater, container, false);
         root = binding.getRoot();
 
-        // check for camera permission and request camera permission if no given
-        if (!checkCameraPermission()) {
-            requestCameraPermission();
-        }
-        // if permission was denied return to landing page
-        if (!checkCameraPermission()) {
-            // switch to landing page TODO
-            // Get the FragmentManager
-            FragmentManager fragmentManager = getParentFragmentManager();
-
-            // Begin a FragmentTransaction
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            // Hide FragmentA and show FragmentB
-            fragmentTransaction.replace(R.id.container, HomeFragment.class, null);
-
-            // Add the transaction to the back stack
-            fragmentTransaction.addToBackStack(null);
-
-            // Commit the FragmentTransaction
-            fragmentTransaction.commit();
-
-            return root;
-        }
-
-        // Launch camera intent to take a photo
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        if (checkCameraPermission()) {
+            // Launch camera intent to take a photo
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        } else {
+            final TextView textView = binding.textView;
+            textView.setText(R.string.no_permission_text);
         }
 
         return root;
@@ -100,21 +80,7 @@ public class CameraFragment extends Fragment {
     }
 
     private boolean checkCameraPermission() {
-        Context context = getContext();
-        if (context == null) {
-            return false;
-        }
-        int permissionResult = ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA);
+        int permissionResult = ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA);
         return permissionResult == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestCameraPermission() {
-        Activity activity = getActivity();
-        if (activity == null) {
-            return;
-        }
-        ActivityCompat.requestPermissions(activity,
-                new String[]{android.Manifest.permission.CAMERA},
-                REQUEST_CAMERA_PERMISSION);
     }
 }

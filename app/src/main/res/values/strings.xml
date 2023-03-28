@@ -13,4 +13,6 @@
     <string name="save">Save</string>
     <string name="saveDescription">Save</string>
     <string name="weight">100</string>
+    <string name="camera_rationale">To scan food, permission for the camera is required</string>
+    <string name="no_permission_text">Permission was not granted! :(</string>
 </resources>
