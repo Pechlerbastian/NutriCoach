@@ -73,6 +73,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        binding.saveButton.setVisibility(View.VISIBLE);
+        binding.weight.setVisibility(View.VISIBLE);
         RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
         String type = btn.getText().toString();
 
