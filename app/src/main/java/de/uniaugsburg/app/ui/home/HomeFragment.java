@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentHomeBinding;
@@ -51,11 +52,10 @@ public class HomeFragment extends Fragment {
         SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy\nhh:mm", Locale.US);
         binding.dateText.setText(dt.format(currentTime));
 
-        Map<String, List<Integer>> itemKcalMap;
-        itemKcalMap = JsonParser.parseJsonFromAsset(this.requireContext());
+        Map<String, List<Integer>> itemKcalMap = JsonParser.parseJsonFromAsset(this.requireContext());
         Integer calories = 0;
         for (String key : itemKcalMap.keySet()) {
-            calories += itemKcalMap.get(key).get(0);
+            calories += Objects.requireNonNull(itemKcalMap.get(key)).get(0);
         }
         String consumedCalories = String.format(getString(R.string.calories), calories);
         binding.caloriesText.setText(consumedCalories);
