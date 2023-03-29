@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
         super.onResume();
 
 
-        Map<String, List<Integer>> itemKcalMap = JsonParser.parseJsonFromAsset(this.requireContext());
+        Map<String, List<Integer>> itemKcalMap = JsonParser.parseJson(this.requireContext());
         Integer calories = 0;
         for (String key : itemKcalMap.keySet()) {
             calories += Objects.requireNonNull(itemKcalMap.get(key)).get(0);

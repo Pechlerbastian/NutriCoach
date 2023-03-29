@@ -106,12 +106,13 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         binding.saveButton.setOnClickListener(v -> {
             Map<String, List<Integer>> itemKcalMap = JsonParser.parseJsonFromAsset(context);
 
-            // TODO : foodName = saveVal[0] caloriesPer100 = saveVal[1]
-            String foodName = "dummyFoodItems";
-            String caloriesPer100 = "120";
+            String response = binding.previewField.getText().toString();
+            String[] split_results = response.split("\n");
+            String foodName = split_results[0];
+            String caloriesPer100 = split_results[1].split(" ")[0];
             int totalCalories;
 
-            int calories = Integer.parseInt(caloriesPer100);
+            int calories = Math.round(Float.parseFloat(caloriesPer100));
 
             RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
             String type = btn.getText().toString();
