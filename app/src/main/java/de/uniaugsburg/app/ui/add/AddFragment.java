@@ -67,28 +67,26 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.saveButton.setVisibility(View.GONE);
         binding.weight.setVisibility(View.GONE);
 
-        binding.saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
+        binding.saveButton.setOnClickListener(v -> {
+            Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
 
-                // TODO : foodName = saveVal[0] caloriesPer100 = saveVal[1]
-                String foodName = "dummyFoodItems";
-                String caloriesPer100 = "120";
+            // TODO : foodName = saveVal[0] caloriesPer100 = saveVal[1]
+            String foodName = "dummyFoodItems";
+            String caloriesPer100 = "120";
 
-                int calories = Integer.parseInt(caloriesPer100);
+            int calories = Integer.parseInt(caloriesPer100);
 
-                String weight = binding.weight.getText().toString();
-                float amount = Integer.parseInt(weight);
-                Integer totalCalories = round(amount / 100 * calories);
-                List<Integer> list = Collections.singletonList(totalCalories);
+            String weight = binding.weight.getText().toString();
+            float amount = Integer.parseInt(weight);
+            Integer totalCalories = round(amount / 100 * calories);
+            List<Integer> list = Collections.singletonList(totalCalories);
 
-                itemKcalMap.put(foodName, list);
+            itemKcalMap.put(foodName, list);
 
-                try {
-                    JsonParser.writeJson(itemKcalMap, context);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                JsonParser.writeJson(itemKcalMap, context);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
         });
         return root;
