@@ -89,6 +89,7 @@
         android:contentDescription="@string/saveDescription"
         android:src="@drawable/ic_save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weight" />
 
