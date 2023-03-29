@@ -74,6 +74,10 @@ public class AddViewModel extends ViewModel {
                 try {
                     jsonObject = new JSONObject(response.body().string());
                     JSONArray jArray = jsonObject.getJSONArray("results");
+                    if(jArray.length() == 0) {
+                        return;
+                    }
+
                     JSONObject firstEntry = new JSONObject(jArray.get(0).toString());
                     String name;
 
@@ -117,7 +121,7 @@ public class AddViewModel extends ViewModel {
                     JSONObject jsonObject;
                     try {
                         jsonObject = new JSONObject(response.body().string());
-                        String calories = "0";
+                        String calories;
                         if(type.equals("Recipe")) {
                             calories = jsonObject.getString("calories");
                             resultCalories = calories.replace("k", "");
@@ -135,7 +139,7 @@ public class AddViewModel extends ViewModel {
                             }
 
                         }
-                        mText.postValue(resultName + ":\n" + "Calories: " + resultCalories + " kcal");
+                        mText.postValue(resultName + ":\n" + resultCalories + " kcal");
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
