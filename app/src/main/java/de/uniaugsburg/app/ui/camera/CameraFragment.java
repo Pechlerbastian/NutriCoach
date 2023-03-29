@@ -2,6 +2,8 @@ package de.uniaugsburg.app.ui.camera;
 
 import static android.app.Activity.RESULT_OK;
 
+import static java.lang.Math.round;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -25,16 +27,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import de.uniaugsburg.app.R;
+import de.uniaugsburg.app.databinding.FragmentAddBinding;
 import de.uniaugsburg.app.databinding.FragmentCameraBinding;
 import de.uniaugsburg.app.ui.add.AddViewModel;
 import de.uniaugsburg.app.ui.home.HomeFragment;
+import de.uniaugsburg.app.util.JsonParser;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -50,12 +61,17 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     private FragmentCameraBinding binding;
     private View root;
 
+    private Context context;
     private CameraViewModel cameraViewModel;
+
+    private String[] saveVal;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        context = this.requireContext();
+
         cameraViewModel =
                 new ViewModelProvider(this).get(CameraViewModel.class);
 
@@ -72,21 +88,53 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getContext(), R.string.no_permission_text, Toast.LENGTH_SHORT).show();
         }
 
-        binding.label.setText(R.string.pre_model_text);
+        binding = FragmentCameraBinding.inflate(inflater, container, false);
+        root = binding.getRoot();
+
+        cameraViewModel.getText().observe(getViewLifecycleOwner(), binding.previewField::setText);
+
+
+        Objects.requireNonNull(binding.inputField.getEditText()).setText(getString(R.string.input));
         binding.searchButton.setText(getString(R.string.search));
-        binding.weight.setText(getString(R.string.weight));
+        Objects.requireNonNull(binding.weight.getEditText()).setText(getString(R.string.weight));
 
         binding.searchButton.setOnClickListener(this);
 
         binding.saveButton.setVisibility(View.GONE);
         binding.weight.setVisibility(View.GONE);
 
-        binding.saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // DATEI SPEICHERN
-            }
-        });
+        binding.saveButton.setOnClickListener(v -> {
+            Map<String, List<Integer>> itemKcalMap = JsonParser.parseJsonFromAsset(context);
 
+            // TODO : foodName = saveVal[0] caloriesPer100 = saveVal[1]
+            String foodName = "dummyFoodItems";
+            String caloriesPer100 = "120";
+            int totalCalories;
+
+            int calories = Integer.parseInt(caloriesPer100);
+
+            RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
+            String type = btn.getText().toString();
+
+            if (type.equals("Ingredient")) {
+                String weight = binding.weight.getEditText().getText().toString();
+                float amount = Integer.parseInt(weight);
+                totalCalories = round(amount / 100 * calories);
+            } else {
+                totalCalories = calories;
+            }
+            List<Integer> list = Collections.singletonList(totalCalories);
+
+            itemKcalMap.put(foodName, list);
+
+            try {
+                JsonParser.writeJson(itemKcalMap, context);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+            Toast.makeText(getContext(), "Item added successfully!", Toast.LENGTH_SHORT).show();
+        });
 
         return root;
     }
@@ -95,6 +143,14 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.saveButton.setVisibility(View.GONE);
+        binding.weight.setVisibility(View.GONE);
+        binding.previewField.setText("");
     }
 
     // receive photo taken and give ml model for prediction TODO
@@ -149,7 +205,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                     } else {
                         String resultString = responseBody.string();
                         // handle the response
-                        binding.inputField.setText(resultString);
+                        Objects.requireNonNull(binding.inputField.getEditText()).setText(resultString);
                     }
                 } else {
                     Log.d("E", "Error (unsuccessful) " + response.code());
@@ -160,8 +216,18 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        cameraViewModel.changeValue();
         binding.saveButton.setVisibility(View.VISIBLE);
-        binding.weight.setVisibility(View.VISIBLE);
+        RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
+        String type = btn.getText().toString();
+
+        if (type.equals("Ingredient")) {
+            binding.weight.setVisibility(View.VISIBLE);
+        } else {
+            binding.weight.setVisibility(View.GONE);
+        }
+
+        String name = Objects.requireNonNull(binding.inputField.getEditText()).getText().toString();
+
+        saveVal = cameraViewModel.changeValue(type, name);
     }
 }

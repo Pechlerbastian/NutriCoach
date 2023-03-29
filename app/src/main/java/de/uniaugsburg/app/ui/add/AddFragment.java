@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -74,12 +75,20 @@ public class AddFragment extends Fragment implements View.OnClickListener {
             // TODO : foodName = saveVal[0] caloriesPer100 = saveVal[1]
             String foodName = "dummyFoodItems";
             String caloriesPer100 = "120";
+            int totalCalories;
 
             int calories = Integer.parseInt(caloriesPer100);
 
-            String weight = binding.weight.getEditText().getText().toString();
-            float amount = Integer.parseInt(weight);
-            Integer totalCalories = round(amount / 100 * calories);
+            RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
+            String type = btn.getText().toString();
+
+            if (type.equals("Ingredient")) {
+                String weight = binding.weight.getEditText().getText().toString();
+                float amount = Integer.parseInt(weight);
+                totalCalories = round(amount / 100 * calories);
+            } else {
+                totalCalories = calories;
+            }
             List<Integer> list = Collections.singletonList(totalCalories);
 
             itemKcalMap.put(foodName, list);
@@ -89,6 +98,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
+
+            Toast.makeText(getContext(), "Item added successfully!", Toast.LENGTH_SHORT).show();
         });
         return root;
     }
@@ -102,14 +113,22 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        binding.saveButton.setVisibility(View.GONE);
+        binding.weight.setVisibility(View.GONE);
+        binding.previewField.setText("");
     }
 
     @Override
     public void onClick(View view) {
         binding.saveButton.setVisibility(View.VISIBLE);
-        binding.weight.setVisibility(View.VISIBLE);
         RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
         String type = btn.getText().toString();
+
+        if (type.equals("Ingredient")) {
+            binding.weight.setVisibility(View.VISIBLE);
+        } else {
+            binding.weight.setVisibility(View.GONE);
+        }
 
         String name = Objects.requireNonNull(binding.inputField.getEditText()).getText().toString();
 
