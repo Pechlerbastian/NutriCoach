@@ -122,6 +122,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
         String type = btn.getText().toString();
 
+        binding.saveButton.setVisibility(View.VISIBLE);
         if (type.equals("Ingredient")) {
             binding.weight.setVisibility(View.VISIBLE);
         } else {
@@ -131,11 +132,5 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         String name = Objects.requireNonNull(binding.inputField.getEditText()).getText().toString();
 
         saveVal = addViewModel.changeValue(type, name);
-        if(saveVal[0].equals("") || saveVal[1].equals("")) {
-            Toast.makeText(getContext(), R.string.no_found_text, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        binding.saveButton.setVisibility(View.VISIBLE);
-        binding.weight.setVisibility(View.VISIBLE);
     }
 }
