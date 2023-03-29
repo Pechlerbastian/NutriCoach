@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,7 +26,8 @@ public class JsonParser {
     public static Map<String, List<Integer>> parseJson(Context context) {
         StringBuilder jsonString = new StringBuilder();
         try {
-            FileInputStream inputStream = context.openFileInput("items.json");
+            File file = new File(context.getFilesDir(), "items.json");
+            FileInputStream inputStream = new FileInputStream(file);
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
             String line;
@@ -118,8 +120,8 @@ public class JsonParser {
         String jsonString = jsonObject.toString();
 
         try {
-            FileOutputStream outputStream = context.openFileOutput("items.json",
-                    Context.MODE_PRIVATE);
+            File file = new File(context.getFilesDir(), "items.json");
+            FileOutputStream outputStream = new FileOutputStream(file);
             outputStream.write(jsonString.getBytes());
             outputStream.close();
         } catch (IOException e) {
