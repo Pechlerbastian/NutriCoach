@@ -48,9 +48,6 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy\nhh:mm", Locale.US);
-        binding.dateText.setText(dt.format(currentTime));
 
         Map<String, List<Integer>> itemKcalMap = JsonParser.parseJsonFromAsset(this.requireContext());
         Integer calories = 0;
