@@ -1,4 +1,6 @@
 package de.uniaugsburg.app.ui.add;
+import static java.lang.Math.round;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,8 +70,19 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
-                List<Integer> list = Collections.singletonList(12);
-                itemKcalMap.put("dummyFoodItem", list);
+
+                String foodName = "dummyFoodItems";
+                String caloriesPer100 = "120";
+
+                int calories = Integer.parseInt(caloriesPer100);
+
+                String weight = binding.weight.getText().toString();
+                float amount = Integer.parseInt(weight);
+                Integer totalCalories = round(amount / 100 * calories);
+                List<Integer> list = Collections.singletonList(totalCalories);
+
+                itemKcalMap.put(foodName, list);
+
                 try {
                     JsonParser.writeJson(itemKcalMap, context);
                 } catch (JSONException e) {
