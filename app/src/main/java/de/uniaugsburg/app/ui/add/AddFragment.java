@@ -72,11 +72,13 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.saveButton.setOnClickListener(v -> {
             Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
 
-            String foodName = saveVal[0];
-            String caloriesPer100 = saveVal[1];
-            int totalCalories;
+            String response = binding.previewField.getText().toString();
+            String[] split_results = response.split("\n");
+            String foodName = split_results[0];
+            String caloriesPer100 = split_results[1].split(" ")[0];
 
-            int calories = Integer.parseInt(caloriesPer100);
+            int totalCalories;
+            int calories = Math.round(Float.parseFloat(caloriesPer100));
 
             RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
             String type = btn.getText().toString();
