@@ -72,9 +72,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.saveButton.setOnClickListener(v -> {
             Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
 
-            // TODO : foodName = saveVal[0] caloriesPer100 = saveVal[1]
-            String foodName = "dummyFoodItems";
-            String caloriesPer100 = "120";
+            String foodName = saveVal[0];
+            String caloriesPer100 = saveVal[1];
             int totalCalories;
 
             int calories = Integer.parseInt(caloriesPer100);
@@ -120,7 +119,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        binding.saveButton.setVisibility(View.VISIBLE);
         RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
         String type = btn.getText().toString();
 
@@ -133,5 +131,11 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         String name = Objects.requireNonNull(binding.inputField.getEditText()).getText().toString();
 
         saveVal = addViewModel.changeValue(type, name);
+        if(saveVal[0].equals("") || saveVal[1].equals("")) {
+            Toast.makeText(getContext(), R.string.no_found_text, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        binding.saveButton.setVisibility(View.VISIBLE);
+        binding.weight.setVisibility(View.VISIBLE);
     }
 }
