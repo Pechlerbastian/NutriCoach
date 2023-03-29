@@ -71,6 +71,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
 
+
+                // TODO : foodName = saveVal[0] caloriesPer100 = saveVal[1]
                 String foodName = "dummyFoodItems";
                 String caloriesPer100 = "120";
 
