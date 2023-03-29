@@ -5,12 +5,12 @@ from ingredients_recognizer import IngredientsRecognizer
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def hello_world():
     return 'Hello World!'
 
 
-@app.route('/ingredient')
+@app.route('/ingredient', methods=['POST', 'GET'])
 def classify_ingredient():
     return 'potato'
 
