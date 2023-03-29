@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:format24Hour="EE, dd MM\nhh:mm:ss"
+        android:format24Hour="EE dd.MM\nhh:mm:ss"
         android:format12Hour="hh:mm:ss"
         android:textSize="50sp"
         android:textColor="@android:color/tab_indicator_text"
