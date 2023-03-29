@@ -45,6 +45,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        context = this.getContext();
 
         addViewModel =
                 new ViewModelProvider(this).get(AddViewModel.class);
@@ -70,7 +71,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
-
 
                 // TODO : foodName = saveVal[0] caloriesPer100 = saveVal[1]
                 String foodName = "dummyFoodItems";
