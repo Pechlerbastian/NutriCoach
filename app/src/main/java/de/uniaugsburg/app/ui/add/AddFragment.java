@@ -75,9 +75,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
             String foodName = saveVal[0];
             String caloriesPer100 = saveVal[1];
 
-            if(foodName.equals("") || caloriesPer100.equals("")) {
-
-            }
 
             int calories = Integer.parseInt(caloriesPer100);
 
