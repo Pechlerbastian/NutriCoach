@@ -1,6 +1,7 @@
 package de.uniaugsburg.app.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,14 @@ import androidx.lifecycle.ViewModelProvider;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentHomeBinding;
+import de.uniaugsburg.app.util.JsonParser;
 
 public class HomeFragment extends Fragment {
 
@@ -47,7 +52,12 @@ public class HomeFragment extends Fragment {
         SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy\nhh:mm", Locale.US);
         binding.dateText.setText(dt.format(currentTime));
 
-        String consumedCalories = String.format(getString(R.string.calories), 2000);
+        Map<String, List<Integer>> itemKcalMap = JsonParser.parseJsonFromAsset(this.requireContext());
+        Integer calories = 0;
+        for (String key : itemKcalMap.keySet()) {
+            calories += Objects.requireNonNull(itemKcalMap.get(key)).get(0);
+        }
+        String consumedCalories = String.format(getString(R.string.calories), calories);
         binding.caloriesText.setText(consumedCalories);
 
         String maxCalories = '/' + String.valueOf(4000);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="16sp"
+    android:paddingTop="128sp"
     tools:context=".ui.add.AddFragment">
 
     <RadioGroup
@@ -86,24 +86,27 @@
     <ImageButton
         android:id="@+id/saveButton"
         android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
         android:background="#4CAF50"
         android:contentDescription="@string/saveDescription"
         android:src="@drawable/ic_save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/preview_field" />
 
     <EditText
         android:id="@+id/weight"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginStart="60dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_margin="16dp"
         android:layout_marginTop="16dp"
+        android:autofillHints=""
         android:ems="10"
         android:inputType="number"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/saveButton"
+        app:layout_constraintHorizontal_bias="0.706"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/preview_field" />
 
