@@ -161,5 +161,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         cameraViewModel.changeValue();
+        binding.saveButton.setVisibility(View.VISIBLE);
+        binding.weight.setVisibility(View.VISIBLE);
     }
 }
