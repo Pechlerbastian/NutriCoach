@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import java.io.IOException;
 
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentCameraBinding;
+import de.uniaugsburg.app.ui.add.AddViewModel;
 import de.uniaugsburg.app.ui.home.HomeFragment;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,17 +43,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class CameraFragment extends Fragment implements View.OnClickListener {
 
     private FragmentCameraBinding binding;
     private View root;
 
+    private CameraViewModel cameraViewModel;
+
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        CameraViewModel cameraViewModel =
+        cameraViewModel =
                 new ViewModelProvider(this).get(CameraViewModel.class);
 
         binding = FragmentCameraBinding.inflate(inflater, container, false);
@@ -101,8 +106,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 
             // rework from here
-            //sendImageRequest();
-            binding.inputField.setText("Hot Dog");
+            sendImageRequest(imageBitmap);
         }
     }
 
@@ -125,7 +129,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                 .build();
 
         Request request = new Request.Builder()
-                .url("0.0.0.0")
+                .url("https://0943-137-250-27-5.eu.ngrok.io")
                 .post(requestBody)
                 .build();
 
@@ -133,16 +137,22 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                Toast.makeText(getContext(), "Error sending request", Toast.LENGTH_SHORT).show();
+                Log.d("E", "Error (sending)");
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    String responseBody = response.body().string();
-                    // handle the response
+                    ResponseBody responseBody = response.body();
+                    if (responseBody == null) {
+                        Log.d("E", "Error (no body)");
+                    } else {
+                        String resultString = responseBody.string();
+                        // handle the response
+                        binding.inputField.setText(resultString);
+                    }
                 } else {
-                    Toast.makeText(getContext(), "Error: " + response.code() + " " + response.message(), Toast.LENGTH_SHORT).show();
+                    Log.d("E", "Error (unsuccessful) " + response.code());
                 }
             }
         });
@@ -150,6 +160,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        return;
+        cameraViewModel.changeValue();
     }
 }
