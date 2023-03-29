@@ -4,8 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="128sp"
+    android:paddingTop="20pt"
     tools:context=".ui.add.AddFragment">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputField"
+        android:layout_width="120pt"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter food"
+            android:textSize="30sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -17,7 +33,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label">
+        app:layout_constraintTop_toBottomOf="@+id/inputField">
 
         <RadioButton
             android:id="@+id/radio_ingredient"
@@ -35,79 +51,55 @@
             android:text="@string/recipe" />
     </RadioGroup>
 
-    <EditText
-        android:id="@+id/inputField"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/inputField"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/search_button"
-        android:layout_width="300dp"
+        android:layout_width="120pt"
         android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="40dp"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.067" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-    <TextView
-        android:id="@+id/preview_field"
-        android:layout_width="300dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/weight"
+        android:layout_width="120pt"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:padding="10dp"
-        android:textSize="30sp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_button" />
+        app:layout_constraintTop_toBottomOf="@+id/preview_field">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="weight (in g)"
+            android:inputType="number"
+            android:textSize="30sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
         android:id="@+id/saveButton"
         android:layout_width="60dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="40dp"
         android:background="#4CAF50"
         android:contentDescription="@string/saveDescription"
         android:src="@drawable/ic_save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/preview_field" />
-
-    <EditText
-        android:id="@+id/weight"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="16dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:inputType="number"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/saveButton"
-        app:layout_constraintHorizontal_bias="0.706"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/preview_field" />
+        app:layout_constraintTop_toBottomOf="@+id/weight" />
+
+    <TextView
+        android:id="@+id/preview_field"
+        android:layout_width="120pt"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

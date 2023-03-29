@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentAddBinding;
@@ -57,10 +58,9 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         addViewModel.getText().observe(getViewLifecycleOwner(), binding.previewField::setText);
 
 
-        binding.inputField.setText(getString(R.string.input));
+        Objects.requireNonNull(binding.inputField.getEditText()).setText(getString(R.string.input));
         binding.searchButton.setText(getString(R.string.search));
-        binding.label.setText(getString(R.string.label));
-        binding.weight.setText(getString(R.string.weight));
+        Objects.requireNonNull(binding.weight.getEditText()).setText(getString(R.string.weight));
 
         binding.searchButton.setOnClickListener(this);
 
@@ -76,7 +76,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
             int calories = Integer.parseInt(caloriesPer100);
 
-            String weight = binding.weight.getText().toString();
+            String weight = binding.weight.getEditText().getText().toString();
             float amount = Integer.parseInt(weight);
             Integer totalCalories = round(amount / 100 * calories);
             List<Integer> list = Collections.singletonList(totalCalories);
@@ -110,8 +110,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         RadioButton btn = root.findViewById(binding.radioGroup.getCheckedRadioButtonId());
         String type = btn.getText().toString();
 
-        String name = binding.inputField.getText().toString();
+        String name = Objects.requireNonNull(binding.inputField.getEditText()).getText().toString();
 
-        // saveVal = addViewModel.changeValue(type, name);
+        saveVal = addViewModel.changeValue(type, name);
     }
 }
