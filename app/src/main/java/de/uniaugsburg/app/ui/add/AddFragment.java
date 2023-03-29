@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentAddBinding;
@@ -68,10 +69,10 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.weight.setVisibility(View.GONE);
 
         binding.saveButton.setOnClickListener(v -> {
-            Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
+            Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJson(context);
 
-            String foodName = saveVal[0];
-            String caloriesPer100 = saveVal[1];
+            String foodName = "dummyFoodItems" + Math.random() * ( 1000 );
+            String caloriesPer100 = "120";
 
             int calories = Integer.parseInt(caloriesPer100);
 

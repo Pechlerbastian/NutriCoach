@@ -42,7 +42,7 @@ public class ItemsFragment extends Fragment {
 
         listView = root.findViewById(R.id.list_view);
 
-        updateData(true);
+        updateData(false);
 
         return root;
     }
@@ -73,17 +73,6 @@ public class ItemsFragment extends Fragment {
 
     @Override
     public void onResume() {
-        List<Integer> list = new ArrayList<>();
-        list.add(2);
-        Map<String, List<Integer>> oldMap = JsonParser.parseJsonFromAsset(this.requireContext());
-        oldMap.put("item99", list);
-
-        try {
-            JsonParser.writeJson(oldMap, this.requireContext());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         updateData(false);
         super.onResume();
     }
