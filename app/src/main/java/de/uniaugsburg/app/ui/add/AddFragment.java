@@ -45,7 +45,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        context = this.getContext();
+        context = this.requireContext();
 
         addViewModel =
                 new ViewModelProvider(this).get(AddViewModel.class);
@@ -67,7 +67,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.saveButton.setVisibility(View.GONE);
         binding.weight.setVisibility(View.GONE);
 
-        context = container.getContext();
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
