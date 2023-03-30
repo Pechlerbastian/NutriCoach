@@ -101,7 +101,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         binding.weight.setVisibility(View.GONE);
 
         binding.saveButton.setOnClickListener(v -> {
-            Map<String, List<Integer>> itemKcalMap = JsonParser.parseJsonFromAsset(context);
+            Map<String, List<Integer>> itemKcalMap = JsonParser.parseJson(context);
 
             String response = binding.previewField.getText().toString();
             if(response.equals("No matching items found")) {

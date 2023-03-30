@@ -1,5 +1,7 @@
 package de.uniaugsburg.app;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -10,7 +12,15 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.json.JSONException;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import de.uniaugsburg.app.databinding.ActivityMainBinding;
+import de.uniaugsburg.app.util.JsonParser;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -22,6 +32,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPref = getSharedPreferences("mySharedPreferences", Context.MODE_PRIVATE);
+
+        Calendar currentDate = Calendar.getInstance();
+        int currentDay = currentDate.get(Calendar.DAY_OF_YEAR);
+
+        int lastStoredDay = sharedPref.getInt("lastStoredDay", -1);
+        if (lastStoredDay != currentDay) {
+            // Reset stored data for new day
+            SharedPreferences.Editor editor = sharedPref.edit();
+            Map<String, List<Integer>> map= new HashMap<>();
+            try {
+                JsonParser.writeJsonCalories(map, getBaseContext());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            editor.clear();
+            editor.apply();
+        }
+
+        // Store the current day as the last stored day
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("lastStoredDay", currentDay);
+        editor.apply();
+
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());

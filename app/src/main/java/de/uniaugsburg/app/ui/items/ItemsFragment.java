@@ -1,5 +1,6 @@
 package de.uniaugsburg.app.ui.items;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import org.json.JSONException;
 import java.util.ArrayList;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +41,7 @@ public class ItemsFragment extends Fragment {
 
         binding = FragmentItemsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         listView = root.findViewById(R.id.list_view);
-
         updateData(false);
 
         return root;
@@ -73,6 +73,7 @@ public class ItemsFragment extends Fragment {
 
     @Override
     public void onResume() {
+
         updateData(false);
         super.onResume();
     }
