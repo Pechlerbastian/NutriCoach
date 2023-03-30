@@ -186,7 +186,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                 .build();
 
         Request request = new Request.Builder()
-                .url("https://2da4-137-250-27-6.eu.ngrok.io")
+                .url("https://a21f-137-250-27-6.eu.ngrok.io")
                 .post(requestBody)
                 .build();
 
