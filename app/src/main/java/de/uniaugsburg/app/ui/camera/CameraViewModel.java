@@ -31,8 +31,8 @@ public class CameraViewModel extends ViewModel {
     private String type;
     private OkHttpClient client;
     private String infoUrl = "";
-    //private final String apiKey = "6cbbb8f2f6184dbb95ae5641d1dce7e4";
-    private final String apiKey = "d5a4c2042b5b4d9b8371479b3f81a435";
+    private final String apiKey = "6cbbb8f2f6184dbb95ae5641d1dce7e4";
+    //private final String apiKey = "d5a4c2042b5b4d9b8371479b3f81a435";
     private String appendInfo = "";
 
 
@@ -104,7 +104,7 @@ public class CameraViewModel extends ViewModel {
                     Log.d("results", resultId + resultName);
                     writeInfo(resultId, resultName);
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    mText.postValue("Call limit exceeded");
                 }
             }
         });
@@ -154,7 +154,7 @@ public class CameraViewModel extends ViewModel {
                         }
                         mText.postValue(resultName + "\n" + resultCalories + " kcal");
                     } catch (JSONException e) {
-                        throw new RuntimeException(e);
+                        mText.postValue("Service error");
                     }
                 }
             });
