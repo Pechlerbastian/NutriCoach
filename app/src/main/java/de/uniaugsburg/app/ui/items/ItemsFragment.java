@@ -16,10 +16,12 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import de.uniaugsburg.app.R;
 import de.uniaugsburg.app.databinding.FragmentItemsBinding;
@@ -56,7 +58,12 @@ public class ItemsFragment extends Fragment {
         }
         // Create the list adapter
         dataList = new ArrayList<>();
-        for (String key : itemKcalMap.keySet()) {
+
+        List<String> sortedKeys = itemKcalMap.keySet()
+                .stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
+        for (String key : sortedKeys) {
             Map<String, String> dataMap = new HashMap<>();
             dataMap.put("item_name", key);
             dataMap.put("item_kcal", (Objects.requireNonNull(itemKcalMap.get(key)).get(0) + " kcal"));
