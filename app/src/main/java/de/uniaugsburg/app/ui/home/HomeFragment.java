@@ -1,5 +1,6 @@
 package de.uniaugsburg.app.ui.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -90,6 +91,22 @@ public class HomeFragment extends Fragment {
         }
         String consumedCalories = String.format(getString(R.string.calories), calories);
         binding.caloriesText.setText(consumedCalories);
+
+
+        int maxCal;
+
+        if(userData != null) {
+            maxCal = Integer.parseInt(Objects.requireNonNull(userData.get("Caloric Demand")));
+        }  else {
+            maxCal = 2500;
+        }
+            if(calories > maxCal) {
+                binding.caloriesText.setTextColor(Color.RED);
+            } else {
+                binding.caloriesText.setTextColor(Color.GREEN);
+            }
+
+
 
         binding.maxCaloriesText.setText(maxCalories);
     }

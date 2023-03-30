@@ -19,8 +19,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter food"
-            android:textSize="30sp"/>
+            android:hint="@string/enter_food"
+            android:textSize="30sp"
+            android:singleLine="true"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <RadioGroup
