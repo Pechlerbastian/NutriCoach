@@ -50,7 +50,7 @@ public class CameraViewModel extends ViewModel {
     }
 
 
-    public String[] changeValue(String foodType, String foodName) {
+    public void changeValue(String foodType, String foodName) {
         client = new OkHttpClient();
         type = foodType;
         String searchUrl = "";
@@ -105,10 +105,10 @@ public class CameraViewModel extends ViewModel {
                     writeInfo(resultId, resultName);
                 } catch (JSONException e) {
                     mText.postValue("Call limit exceeded");
+                    e.printStackTrace();
                 }
             }
         });
-        return new String[] {resultName, resultCalories };
     }
 
     public LiveData<String> getText() {
@@ -118,9 +118,16 @@ public class CameraViewModel extends ViewModel {
     public void writeInfo(String resultId, String resultName) {
         Log.d("second query", resultId + resultName);
         if (!resultId.equals("") && !resultName.equals("")) {
-            Request infoRequest = new Request.Builder()
-                    .url(infoUrl + "/" + resultId + "/" + appendInfo + "?apiKey=" + apiKey + "&amount=1")
-                    .build();
+            Request infoRequest;
+            if(type.equals("Recipe")) {
+                infoRequest = new Request.Builder()
+                        .url(infoUrl + "/" + resultId + "/" + appendInfo + "?apiKey=" + apiKey)
+                        .build();
+            } else {
+                infoRequest = new Request.Builder()
+                        .url(infoUrl + "/" + resultId + "/" + appendInfo + "?apiKey=" + apiKey + "&unit=g&amount=100")
+                        .build();
+            }
 
             Log.d("request", infoRequest.toString());
             client.newCall(infoRequest).enqueue(new Callback() {
@@ -152,7 +159,11 @@ public class CameraViewModel extends ViewModel {
                             }
 
                         }
-                        mText.postValue(resultName + "\n" + resultCalories + " kcal");
+                        String append = " kcal";
+                        if(type.equals("Ingredient")) {
+                            append += "/100g";
+                        }
+                        mText.postValue(resultName + "\n" + resultCalories + append);
                     } catch (JSONException e) {
                         mText.postValue("Service error");
                     }

@@ -229,6 +229,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
         String name = Objects.requireNonNull(binding.inputField.getEditText()).getText().toString();
 
-        saveVal = cameraViewModel.changeValue(type, name);
+        cameraViewModel.changeValue(type, name);
     }
 }
