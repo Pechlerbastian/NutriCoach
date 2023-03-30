@@ -73,6 +73,9 @@ public class AddFragment extends Fragment implements View.OnClickListener {
             Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
 
             String response = binding.previewField.getText().toString();
+            if(response.equals("No matching items found")) {
+                return;
+            }
             String[] split_results = response.split("\n");
             String foodName = split_results[0];
             String caloriesPer100 = split_results[1].split(" ")[0];

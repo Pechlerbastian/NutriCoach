@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import de.uniaugsburg.app.R;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -76,6 +77,7 @@ public class AddViewModel extends ViewModel {
                     jsonObject = new JSONObject(response.body().string());
                     JSONArray jArray = jsonObject.getJSONArray("results");
                     if(jArray.length() == 0) {
+                        mText.setValue("No matching items found");
                         return;
                     }
 
