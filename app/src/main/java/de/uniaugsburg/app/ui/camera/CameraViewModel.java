@@ -21,6 +21,7 @@ import okhttp3.Response;
 public class CameraViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
+    private final MutableLiveData<String> mTextCamera;
 
     private String resultId = "";
     private String resultName = "";
@@ -37,7 +38,17 @@ public class CameraViewModel extends ViewModel {
 
     public CameraViewModel() {
         mText = new MutableLiveData<>();
+        mTextCamera = new MutableLiveData<>();
     }
+
+    public MutableLiveData<String> getMTextCamera(){
+        return mTextCamera;
+    }
+
+    public LiveData<String> getTextCamera(){
+        return mTextCamera;
+    }
+
 
     public String[] changeValue(String foodType, String foodName) {
         client = new OkHttpClient();

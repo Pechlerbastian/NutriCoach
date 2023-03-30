@@ -81,18 +81,20 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         if (checkCameraPermission()) {
             // Launch camera intent to take a photo
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         } else {
             Toast.makeText(getContext(), R.string.no_permission_text, Toast.LENGTH_SHORT).show();
         }
 
+        cameraViewModel.getTextCamera().observe(getViewLifecycleOwner(), binding.editText::setText);
+
         binding = FragmentCameraBinding.inflate(inflater, container, false);
         root = binding.getRoot();
 
         cameraViewModel.getText().observe(getViewLifecycleOwner(), binding.previewField::setText);
-
 
         Objects.requireNonNull(binding.inputField.getEditText()).setText(getString(R.string.input));
         binding.searchButton.setText(getString(R.string.search));
@@ -186,7 +188,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                 .build();
 
         Request request = new Request.Builder()
-                .url("https://0943-137-250-27-5.eu.ngrok.io")
+                .url("https://2da4-137-250-27-6.eu.ngrok.io")
                 .post(requestBody)
                 .build();
 
@@ -206,7 +208,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                     } else {
                         String resultString = responseBody.string();
                         // handle the response
-                        Objects.requireNonNull(binding.inputField.getEditText()).setText(resultString);
+                        cameraViewModel.getMTextCamera().postValue(resultString);
                     }
                 } else {
                     Log.d("E", "Error (unsuccessful) " + response.code());
