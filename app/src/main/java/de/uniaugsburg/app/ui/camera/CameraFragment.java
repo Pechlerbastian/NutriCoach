@@ -90,10 +90,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         }
 
         cameraViewModel.getTextCamera().observe(getViewLifecycleOwner(), binding.editText::setText);
-
-        binding = FragmentCameraBinding.inflate(inflater, container, false);
-        root = binding.getRoot();
-
         cameraViewModel.getText().observe(getViewLifecycleOwner(), binding.previewField::setText);
 
         Objects.requireNonNull(binding.inputField.getEditText()).setText(getString(R.string.input));
