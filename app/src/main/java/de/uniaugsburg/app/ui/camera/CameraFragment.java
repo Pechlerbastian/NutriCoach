@@ -90,10 +90,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         }
 
         cameraViewModel.getTextCamera().observe(getViewLifecycleOwner(), binding.editText::setText);
-
-        binding = FragmentCameraBinding.inflate(inflater, container, false);
-        root = binding.getRoot();
-
         cameraViewModel.getText().observe(getViewLifecycleOwner(), binding.previewField::setText);
 
         Objects.requireNonNull(binding.inputField.getEditText()).setText(getString(R.string.input));
@@ -131,7 +127,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             itemKcalMap.put(foodName, list);
 
             try {
-                JsonParser.writeJson(itemKcalMap, context);
+                JsonParser.writeJsonCalories(itemKcalMap, context);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

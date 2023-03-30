@@ -23,28 +23,32 @@ import java.util.Objects;
 public class JsonParser {
 
 
-    public static Map<String, List<Integer>> parseJson(Context context) {
+    private static String getJsonString(Context context, String fileName, boolean fromAsset) throws IOException {
         StringBuilder jsonString = new StringBuilder();
-        try {
-            File file = new File(context.getFilesDir(), "items.json");
-            FileInputStream inputStream = new FileInputStream(file);
+        InputStream inputStream;
+        if(fromAsset) {
+            AssetManager assetManager = context.getAssets();
+            inputStream = assetManager.open(fileName);
+        } else{
+            File file = new File(context.getFilesDir(), fileName);
+            inputStream = new FileInputStream(file);
 
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                jsonString.append(line);
-            }
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new HashMap<>();
         }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            jsonString.append(line);
+        }
+        bufferedReader.close();
+        return jsonString.toString();
+    }
 
+    public static Map<String, List<Integer>> parseJson(Context context) {
         // Parse the JSON string
-        Map<String, List<Integer>> itemKcalMap = null;
+        Map<String, List<Integer>> itemKcalMap = new HashMap<>();
         try {
+            String jsonString = getJsonString(context, "list_values.json", false);
             JSONObject json = new JSONObject(jsonString.toString());
-            itemKcalMap = new HashMap<>();
 
             // Iterate over the JSON keys and add them to the map
             Iterator<String> keys = json.keys();
@@ -59,34 +63,19 @@ public class JsonParser {
                 }
 
             }
-        } catch (JSONException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
         return itemKcalMap;
     }
 
     public static Map<String, List<Integer>> parseJsonFromAsset(Context context) {
-        StringBuilder jsonString = new StringBuilder();
-        try {
-            // TODO remove and use the internal storage! Assets are read only
-            AssetManager assetManager = context.getAssets();
-            InputStream inputStream = assetManager.open("list_values.json");
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                jsonString.append(line);
-            }
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new HashMap<>();
-        }
 
         // Parse the JSON string
         Map<String, List<Integer>> itemKcalMap = null;
         try {
-            JSONObject json = new JSONObject(jsonString.toString());
+            String jsonString = getJsonString(context, "list_values.json", true);
+            JSONObject json = new JSONObject(jsonString);
             itemKcalMap = new HashMap<>();
 
             // Iterate over the JSON keys and add them to the map
@@ -102,13 +91,61 @@ public class JsonParser {
                 }
 
             }
-        } catch (JSONException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
         return itemKcalMap;
     }
 
-    public static void writeJson(Map<String, List<Integer>> itemKcalMap, Context context)
+    public static Map<String, String> parseUserDataJsonFromAsset(Context context){
+        Map<String, String> userData = null;
+        try {
+            String jsonString = getJsonString(context, "user.json", true);
+            JSONObject json = new JSONObject(jsonString);
+            userData = new HashMap<>();
+
+            // Iterate over the JSON keys and add them to the map
+            Iterator<String> keys = json.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                String value = json.getString(key);
+
+                if (!userData.containsKey(key)) {
+                    userData.put(key, value);
+                }
+
+            }
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+        return userData;
+    }
+
+    public static Map<String, String> parseUserDataJson(Context context){
+        Map<String, String> userData = null;
+        try {
+            String jsonString = getJsonString(context, "user.json", false);
+            JSONObject json = new JSONObject(jsonString);
+            userData = new HashMap<>();
+
+            // Iterate over the JSON keys and add them to the map
+            Iterator<String> keys = json.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                String value = json.getString(key);
+
+                if (!userData.containsKey(key)) {
+                    userData.put(key, value);
+                }
+
+            }
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+        return userData;
+    }
+
+    public static void writeJsonCalories(Map<String, List<Integer>> itemKcalMap, Context context)
             throws JSONException {
         JSONObject jsonObject = new JSONObject();
         for (String key : itemKcalMap.keySet()) {
@@ -121,6 +158,26 @@ public class JsonParser {
 
         try {
             File file = new File(context.getFilesDir(), "items.json");
+            FileOutputStream outputStream = new FileOutputStream(file);
+            outputStream.write(jsonString.getBytes());
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void writeJsonUserData(Map<String, String> userData, Context context)
+            throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        for (String key : userData.keySet()) {
+            jsonObject.put(key, userData.get(key));
+        }
+
+        String jsonString = jsonObject.toString();
+
+        try {
+            File file = new File(context.getFilesDir(), "user.json");
             FileOutputStream outputStream = new FileOutputStream(file);
             outputStream.write(jsonString.getBytes());
             outputStream.close();
