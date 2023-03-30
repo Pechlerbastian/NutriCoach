@@ -107,9 +107,16 @@ public class AddViewModel extends ViewModel {
     public void writeInfo(String resultId, String resultName) {
         Log.d("second query", resultId + resultName);
         if (!resultId.equals("") && !resultName.equals("")) {
-            Request infoRequest = new Request.Builder()
-                    .url(infoUrl + "/" + resultId + "/" + appendInfo + "?apiKey=" + apiKey + "&amount=1")
-                    .build();
+            Request infoRequest;
+            if(type.equals("Recipe")) {
+                infoRequest = new Request.Builder()
+                        .url(infoUrl + "/" + resultId + "/" + appendInfo + "?apiKey=" + apiKey)
+                        .build();
+            } else {
+                infoRequest = new Request.Builder()
+                        .url(infoUrl + "/" + resultId + "/" + appendInfo + "?apiKey=" + apiKey + "&unit=g&amount=100")
+                        .build();
+            }
 
             Log.d("request", infoRequest.toString());
             client.newCall(infoRequest).enqueue(new Callback() {
