@@ -61,7 +61,7 @@ public class ItemsFragment extends Fragment {
 
         List<String> sortedKeys = itemKcalMap.keySet()
                 .stream()
-                .sorted(Comparator.reverseOrder())
+                .sorted(Comparator.comparingInt((String s) -> Integer.parseInt(s.split(" ")[0])).reversed())
                 .collect(Collectors.toList());
         for (String key : sortedKeys) {
             Map<String, String> dataMap = new HashMap<>();
