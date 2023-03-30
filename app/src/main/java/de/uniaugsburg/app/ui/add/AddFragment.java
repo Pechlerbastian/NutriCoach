@@ -42,7 +42,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
 
-    private String[] saveVal;
     private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -136,6 +135,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
         String name = Objects.requireNonNull(binding.inputField.getEditText()).getText().toString();
 
-        saveVal = addViewModel.changeValue(type, name);
+        addViewModel.changeValue(type, name);
     }
 }

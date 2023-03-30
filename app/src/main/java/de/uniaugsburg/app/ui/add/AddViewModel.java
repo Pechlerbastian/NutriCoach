@@ -40,7 +40,7 @@ public class AddViewModel extends ViewModel {
         mText = new MutableLiveData<>();
     }
 
-    public String[] changeValue(String foodType, String foodName) {
+    public void changeValue(String foodType, String foodName) {
         client = new OkHttpClient();
         type = foodType;
         String searchUrl = "";
@@ -98,7 +98,6 @@ public class AddViewModel extends ViewModel {
                 }
             }
         });
-        return new String[] {resultName, resultCalories };
     }
 
     public LiveData<String> getText() {
