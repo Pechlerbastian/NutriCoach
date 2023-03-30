@@ -42,7 +42,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
 
-    private String[] saveVal;
     private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -73,6 +72,9 @@ public class AddFragment extends Fragment implements View.OnClickListener {
             Map<String, List<Integer>>  itemKcalMap = JsonParser.parseJsonFromAsset(context);
 
             String response = binding.previewField.getText().toString();
+            if(response.equals("No matching items found")) {
+                return;
+            }
             String[] split_results = response.split("\n");
             String foodName = split_results[0];
             String caloriesPer100 = split_results[1].split(" ")[0];
@@ -133,6 +135,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
         String name = Objects.requireNonNull(binding.inputField.getEditText()).getText().toString();
 
-        saveVal = addViewModel.changeValue(type, name);
+        addViewModel.changeValue(type, name);
     }
 }

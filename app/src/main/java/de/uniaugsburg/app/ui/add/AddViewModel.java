@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import de.uniaugsburg.app.R;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -39,7 +40,7 @@ public class AddViewModel extends ViewModel {
         mText = new MutableLiveData<>();
     }
 
-    public String[] changeValue(String foodType, String foodName) {
+    public void changeValue(String foodType, String foodName) {
         client = new OkHttpClient();
         type = foodType;
         String searchUrl = "";
@@ -76,6 +77,7 @@ public class AddViewModel extends ViewModel {
                     jsonObject = new JSONObject(response.body().string());
                     JSONArray jArray = jsonObject.getJSONArray("results");
                     if(jArray.length() == 0) {
+                        mText.postValue("No matching items found");
                         return;
                     }
 
@@ -96,7 +98,6 @@ public class AddViewModel extends ViewModel {
                 }
             }
         });
-        return new String[] {resultName, resultCalories };
     }
 
     public LiveData<String> getText() {
