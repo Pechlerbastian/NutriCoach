@@ -149,7 +149,11 @@ public class AddViewModel extends ViewModel {
                             }
 
                         }
-                        mText.postValue(resultName + "\n" + resultCalories + " kcal/100g");
+                        String append = " kcal";
+                        if(type.equals("Ingredient")) {
+                            append += "/100g";
+                        }
+                        mText.postValue(resultName + "\n" + resultCalories + append);
                     } catch (JSONException e) {
                         mText.postValue("Service error");
                     }
