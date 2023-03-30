@@ -45,11 +45,10 @@ public class JsonParser {
 
     public static Map<String, List<Integer>> parseJson(Context context) {
         // Parse the JSON string
-        Map<String, List<Integer>> itemKcalMap = null;
+        Map<String, List<Integer>> itemKcalMap = new HashMap<>();
         try {
             String jsonString = getJsonString(context, "list_values.json", false);
             JSONObject json = new JSONObject(jsonString.toString());
-            itemKcalMap = new HashMap<>();
 
             // Iterate over the JSON keys and add them to the map
             Iterator<String> keys = json.keys();
