@@ -92,7 +92,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
             }
             List<Integer> list = Collections.singletonList(totalCalories);
             int id = itemKcalMap.keySet().size() + 1;
-            itemKcalMap.put(id + " " + foodName , list);
+            itemKcalMap.put(id + " - " + foodName , list);
 
             try {
                 JsonParser.writeJsonCalories(itemKcalMap, context);
