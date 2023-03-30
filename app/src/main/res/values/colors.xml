@@ -3,8 +3,8 @@
     <color name="green_200">#268C1E</color>
     <color name="green_500">#23821c</color>
     <color name="green_700">#1B6315</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="teal_200">#1B6315</color>
+    <color name="teal_700">#1B6315</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
