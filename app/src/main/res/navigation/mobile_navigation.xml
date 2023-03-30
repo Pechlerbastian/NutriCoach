@@ -23,11 +23,16 @@
         android:label="@string/title_items"
         tools:layout="@layout/fragment_items" />
 
- <!-- TODO maybe remove this codeblock-->
     <fragment
         android:id="@+id/navigation_camera"
         android:name="de.uniaugsburg.app.ui.camera.CameraFragment"
         android:label="@string/title_camera"
         tools:layout="@layout/fragment_camera" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="de.uniaugsburg.app.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>
