@@ -77,7 +77,7 @@ public class AddViewModel extends ViewModel {
                     jsonObject = new JSONObject(response.body().string());
                     JSONArray jArray = jsonObject.getJSONArray("results");
                     if(jArray.length() == 0) {
-                        mText.setValue("No matching items found");
+                        mText.postValue("No matching items found");
                         return;
                     }
 
