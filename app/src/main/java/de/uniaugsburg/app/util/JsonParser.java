@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,7 +31,9 @@ public class JsonParser {
             AssetManager assetManager = context.getAssets();
             inputStream = assetManager.open(fileName);
         } else{
+
             File file = new File(context.getFilesDir(), fileName);
+
             inputStream = new FileInputStream(file);
 
         }
@@ -48,7 +51,7 @@ public class JsonParser {
         Map<String, List<Integer>> itemKcalMap = new HashMap<>();
         try {
             String jsonString = getJsonString(context, "list_values.json", false);
-            JSONObject json = new JSONObject(jsonString.toString());
+            JSONObject json = new JSONObject(jsonString);
 
             // Iterate over the JSON keys and add them to the map
             Iterator<String> keys = json.keys();
@@ -157,7 +160,7 @@ public class JsonParser {
         String jsonString = jsonObject.toString();
 
         try {
-            File file = new File(context.getFilesDir(), "items.json");
+            File file = new File(context.getFilesDir(), "list_values.json");
             FileOutputStream outputStream = new FileOutputStream(file);
             outputStream.write(jsonString.getBytes());
             outputStream.close();
