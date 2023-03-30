@@ -26,4 +26,6 @@
     <string name="calculate_amp_save"><![CDATA[Calculate & Save]]></string>
     <string name="activity_level_text">Activity Level:</string>
     <string name="caloric_demand">Caloric demand: %1$d kcal</string>
+    <string name="enter_food">Enter food</string>
+    <string name="this_looks_like">This looks like</string>
 </resources>
