@@ -58,8 +58,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
         addViewModel.getText().observe(getViewLifecycleOwner(), binding.previewField::setText);
 
-
-        Objects.requireNonNull(binding.inputField.getEditText()).setText(getString(R.string.input));
         binding.searchButton.setText(getString(R.string.search));
         Objects.requireNonNull(binding.weight.getEditText()).setText(getString(R.string.weight));
 

@@ -15,9 +15,8 @@
     <string name="saveDescription">Save</string>
     <string name="weight">100</string>
     <string name="camera_rationale">To scan food, permission for the camera is required</string>
-    <string name="no_permission_text">Permission was not granted! :(</string>
-    <string name="no_found_text">No matches found :(</string>
-    <string name="pre_model_text">This looks like a</string>
+    <string name="no_permission_text">Camera permission was not granted</string>
+    <string name="pre_model_text">This looks like</string>
     <string name="user_age">Age</string>
     <string name="user_weight">Weight</string>
     <string name="user_height">Height</string>
