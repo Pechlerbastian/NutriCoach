@@ -148,7 +148,7 @@ public class AddViewModel extends ViewModel {
                             }
 
                         }
-                        mText.postValue(resultName + "\n" + resultCalories + " kcal");
+                        mText.postValue(resultName + "\n" + resultCalories + " kcal/100g");
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
