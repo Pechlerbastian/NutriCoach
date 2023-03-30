@@ -74,8 +74,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
             String response = binding.previewField.getText().toString();
             if(response.equals("No matching items found")) {
-                binding.weight.setVisibility(View.GONE);
-                binding.saveButton.setVisibility(View.GONE);
                 return;
             }
             String[] split_results = response.split("\n");
