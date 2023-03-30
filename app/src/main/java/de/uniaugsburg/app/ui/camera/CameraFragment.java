@@ -127,7 +127,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             itemKcalMap.put(foodName, list);
 
             try {
-                JsonParser.writeJson(itemKcalMap, context);
+                JsonParser.writeJsonCalories(itemKcalMap, context);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
