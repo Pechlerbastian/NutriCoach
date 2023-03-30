@@ -18,4 +18,13 @@
     <string name="no_permission_text">Permission was not granted! :(</string>
     <string name="no_found_text">No matches found :(</string>
     <string name="pre_model_text">This looks like a</string>
+    <string name="user_age">Age</string>
+    <string name="user_weight">Weight</string>
+    <string name="user_height">Height</string>
+    <string name="user_male">Male</string>
+    <string name="user_female">Female</string>
+    <string name="user_other">Other</string>
+    <string name="calculate_amp_save"><![CDATA[Calculate & Save]]></string>
+    <string name="activity_level_text">Activity Level:</string>
+    <string name="caloric_demand">Caloric demand: %1$d kcal</string>
 </resources>
