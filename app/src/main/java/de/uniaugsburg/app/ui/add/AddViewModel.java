@@ -31,8 +31,8 @@ public class AddViewModel extends ViewModel {
     private String type;
     private OkHttpClient client;
     private String infoUrl = "";
-    private final String apiKey = "6cbbb8f2f6184dbb95ae5641d1dce7e4";
-    //private final String apiKey = "d5a4c2042b5b4d9b8371479b3f81a435";
+    //private final String apiKey = "6cbbb8f2f6184dbb95ae5641d1dce7e4";
+    private final String apiKey = "d5a4c2042b5b4d9b8371479b3f81a435";
     private String appendInfo = "";
 
 
